@@ -1,4 +1,5 @@
 const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const config = {
   mode: "development",
@@ -7,6 +8,12 @@ const config = {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
   },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: "style.css",
+      chunkFilename: "style.css",
+    }),
+  ],
   module: {
     rules: [
       {
@@ -18,6 +25,10 @@ const config = {
             presets: ["@babel/preset-env"],
           },
         },
+      },
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
     ],
   },
