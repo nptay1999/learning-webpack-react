@@ -1,37 +1,46 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const config = {
+const devConfig = {
   mode: "development",
-  entry: "./src/index.js",
+  entry: "./src/index.jsx",
   output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    path: path.join(__dirname, "dist"),
+    filename: "scripts/index.bundle.js",
   },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: "style.css",
-      chunkFilename: "style.css",
-    }),
-  ],
+  devServer: {
+    port: 3000,
+    watchContentBase: true,
+  },
+  resolve: {
+    extensions: [".js", ".jsx"],
+  },
   module: {
     rules: [
       {
-        test: /\.m?js$/,
-        exclude: /node_modules/,
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env"],
+            presets: ["@babel/preset-env", "@babel/preset-react"],
           },
         },
+        test: /\.m?(js|jsx)$/,
+        exclude: /node_modules/,
       },
       {
-        test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
+        test: /\.css$/,
       },
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({ template: "./public/index.html" }),
+    new MiniCssExtractPlugin({
+      filename: "styles/index.css",
+    }),
+  ],
 };
 
-module.exports = config;
+module.exports = devConfig;
