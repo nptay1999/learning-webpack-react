@@ -1,6 +1,6 @@
-import React from "react";
-import Image from "./assets/react.png";
-import ImageSVG from "./assets/react-logo-svg.svg";
+import React from 'react';
+import Image from './assets/react.png';
+import ImageSVG from './assets/react-logo-svg.svg';
 
 const App = () => {
   return (
