@@ -1,53 +1,53 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, "..", "src/index.tsx"),
+  entry: path.resolve(__dirname, '..', 'src/index.tsx'),
   resolve: {
-    extensions: [".tsx", ".jsx", ".js"],
+    extensions: ['.tsx', '.jsx', '.js'],
   },
   module: {
     rules: [
       {
-        use: "babel-loader",
+        use: 'babel-loader',
         test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
       },
       {
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
         test: /\.css$/,
       },
       {
         test: /\.(png|jpg|jpeg|gif)$/i,
-        type: "asset/resource",
+        type: 'asset/resource',
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf|svg)$/i,
-        type: "asset/inline",
+        type: 'asset/inline',
       },
       {
         test: /\.(csv|tsv)$/i,
-        use: ["csv-loader"],
+        use: ['csv-loader'],
       },
       {
         test: /\.xml$/i,
-        use: ["xml-loader"],
+        use: ['xml-loader'],
       },
     ],
   },
   output: {
-    path: path.resolve(__dirname, "..", "dist"),
-    filename: "script/bundle.js",
-    assetModuleFilename: "assets/[hash][ext][query]",
+    path: path.resolve(__dirname, '..', 'dist'),
+    filename: 'script/bundle.js',
+    assetModuleFilename: 'assets/[hash][ext][query]',
   },
-  mode: "development",
+  mode: 'development',
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "..", "src/public/index.html"),
+      template: path.resolve(__dirname, '..', 'src/public/index.html'),
     }),
     new MiniCssExtractPlugin({
-      filename: "styles/index.css",
+      filename: 'styles/index.css',
     }),
   ],
 };
